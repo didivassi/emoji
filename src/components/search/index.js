@@ -1,34 +1,28 @@
-import { useEffect, useCallback, useState } from "react";
-const Search = ({setEmojiList, setSearching}) => {
-  const API_KEY = "6553dbf90e4b9f44d036b2dfee5b578ad5d0fcc5";
+import './search.css';
+import { useEffect, useState } from "react";
+const Search = ({emojiList, setSearching, setEmojiListResults}) => {
 
   let [searchText, setSearchText] = useState("");
 
   const searchEmoji = (e) => {
-    if (e.key === "Enter") {
+      setSearching(true);
       setSearchText(e.target.value);
-    }
   };
 
-  const fetchFromApi = useCallback(() => {
-    setSearching(true);
+  useEffect(() => { 
 
-    let API_URL = `https://emoji-api.com/emojis?access_key=${API_KEY}`;
-    if (searchText) {
-      API_URL += `&search=${searchText}`;
+    if(!searchText?.length===0) {
+      setSearching(false);
+      setEmojiListResults(emojiList);
+      return;
     }
-    fetch(API_URL)
-      .then((res) => res.json())
-      .then((data) => {
-        setSearching(false);
-        setEmojiList(data);
-      });
-  }, [searchText,setEmojiList,setSearching]);
+    const results = emojiList.filter(emoji => emoji.unicodeName.toLowerCase().includes(searchText.toLowerCase()));
+    setEmojiListResults(results);
+    setSearching(false);
 
 
-  useEffect(() => {
-    fetchFromApi();
-  }, [fetchFromApi]);
+  }, [searchText, emojiList, setEmojiListResults, setSearching]);
+
 
   return (
     <div className="search">
@@ -37,7 +31,7 @@ const Search = ({setEmojiList, setSearching}) => {
           <input
             type="text"
             placeholder="Search for an emoji"
-            onKeyPress={searchEmoji}
+            onChange={searchEmoji}
           />
         </div>
       </div>

@@ -1,0 +1,54 @@
+.emoji-item {
+  font: 1rem sans-serif;
+  border: 5px dashed #ccc;
+  cursor: pointer;
+  position: relative;
+
+  -webkit-transition-duration: 0.4s; /* Safari */
+  transition-duration: 0.4s;
+  text-decoration: none;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.emoji-item:hover {
+  border: 5px dashed #000;
+}
+
+.emoji-item:after {
+  content: "";
+  background: #ffb800;
+  display: block;
+  position: absolute;
+  padding-top: 300%;
+  padding-left: 350%;
+  margin-left: -20px !important;
+  margin-top: -120%;
+  opacity: 0;
+  transition: all 0.8s;
+}
+
+.emoji-item:active:after {
+  padding: 0;
+  margin: 0;
+  opacity: 1;
+  transition: 0s;
+}
+
+.emoji-item-cliked {
+  font: 0.5rem sans-serif;
+  border: 1px dashed #ccc;
+  cursor: pointer;
+}
+
+.emoji-item__emoji-label {
+  height: 25%;
+  text-transform: capitalize;
+  padding: 0.5rem;
+  border-bottom: 1px solid #ccc;
+  background-color: #ffb800;
+}
+
+.emoji-item__emoji-char {
+  font: 3rem sans-serif;
+}

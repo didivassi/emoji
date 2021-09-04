@@ -1,30 +1,21 @@
-import './style.css';
+import "./style.css";
 
 const EmojiItem = ({ emoji }) => {
 
-    const onClick = (e) => {
-        navigator.clipboard.writeText(e.target.dataset.emoji);
-    }
+  const onClick = (e) => {
+    navigator.clipboard.writeText(e.target.dataset.emoji);
+   // console.log(e.target.parentNode);
+   console.log(e.target.dataset.emoji);
+  };
 
-return (
-    <div className="emoji-item" >
-        <div className="emoji-item__emoji">
-            <div className="emoji-item__emoji-inner">
-                {emoji.character}
-            </div>
-            <div className="emoji-item__emoji-label">
-                {emoji.unicodeName}
-            </div>
-            <div className="emoji-item__emoji-label">
-                {emoji.codePoint}
-            </div>
-            <div className="emoji-item__emoji-label" data-emoji={emoji.character} onClick={onClick}>
-                Copy to clipboard
-            </div>
-        </div>
+  return (
+    <div className="emoji-item" data-emoji={emoji.character} onClick={onClick}>
+      <div className="emoji-item__emoji-label">{emoji.unicodeName}</div>
+      <div className="emoji-item__emoji-char">{emoji.character}</div>
+     
     </div>
-)
-}
+  );
+};
 
 export default EmojiItem;
 

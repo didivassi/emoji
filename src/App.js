@@ -1,26 +1,34 @@
 import "./App.css";
 import Header from "./components/header";
 import Search from "./components/search";
+import EmojiDB from "./components/emoji-db";
 import EmojiList from "./components/emoji-list";
 import { useState } from "react";
 
 function App() {
   let [emojiList, setEmojiList] = useState([]);
+  let [emojiListResults, setEmojiListResults] = useState([]);
   let [searching, setSearching] = useState(false);
+  let [loading, setLoading] = useState(false);
+ 
 
+ 
   const handleSearch = () => {
-    if (searching){
-      return ( <div className="loader">Loading</div>);
+    if (loading) {
+      return <div className="loader">Loading</div>;
     }
-    return ( <EmojiList emojis={emojiList}/>)
-  }
-  
+    if (searching) {
+      return <div className="loader">Searching</div>;
+    }
+    return (<EmojiList emojis={emojiListResults} />);
+  };
+
   return (
     <div className="App">
       <Header />
-      <Search setEmojiList={setEmojiList} setSearching={setSearching} />
+      <EmojiDB setEmojiList={setEmojiList} setLoading={setLoading} />
+      <Search emojiList={emojiList} setSearching={setSearching} setEmojiListResults={setEmojiListResults} />
       {handleSearch()}
-      
     </div>
   );
 }
